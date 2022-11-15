@@ -12,7 +12,7 @@ const App = () => {
 const Toggle = ({ toggle, onToggle }) => {
   React.useEffect(() => {
     console.log('I run on every render: mount + update.');
-  });
+  }, []);
   return (
     <div>
       <button type="button" onClick={onToggle}>
