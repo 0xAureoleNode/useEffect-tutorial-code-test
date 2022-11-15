@@ -10,23 +10,25 @@ const App = () => {
 };
 
 const Toggle = ({ toggle, onToggle }) => {
-  const [title, setTitle] = React.useState('Hello React');
-
+  const calledOnce = React.useRef(false);
+  // bez init value is false, 所以一旦掉用完之后，calledOnce be true，直接就一直处于return，不会执行接下来的函数
   React.useEffect(() => {
-    console.log('I still run only if toggle changes (and on mount).');
-  }, [toggle, title]);
+    if (calledOnce.current) {
+      return;
+    }
+    if (toggle === false) {
+      console.log('I run only once if toggle is false');
+      calledOnce.current = true;
+    }
+  }, [toggle]);
 
-  const handleChange = (event) => {
-    setTitle(event.target.value);
-  };
   return (
     <div>
-      <input type="text" value={title} onChange={handleChange} />
       <button type="button" onClick={onToggle}>
         Toggle
       </button>
 
-      {toggle && <div>{title}</div>}
+      {toggle && <div>Hello React</div>}
     </div>
   );
 };
