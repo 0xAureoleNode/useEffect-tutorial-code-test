@@ -10,16 +10,23 @@ const App = () => {
 };
 
 const Toggle = ({ toggle, onToggle }) => {
+  const [title, setTitle] = React.useState('Hello React');
+
   React.useEffect(() => {
-    console.log('I run on every render: mount + update.');
-  }, []);
+    console.log('I still run only if toggle changes (and on mount).');
+  }, [toggle, title]);
+
+  const handleChange = (event) => {
+    setTitle(event.target.value);
+  };
   return (
     <div>
+      <input type="text" value={title} onChange={handleChange} />
       <button type="button" onClick={onToggle}>
         Toggle
       </button>
 
-      {toggle && <div>Hello React</div>}
+      {toggle && <div>{title}</div>}
     </div>
   );
 };
